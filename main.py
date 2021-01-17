@@ -187,7 +187,7 @@ def inspect(database, pdes=None, name=None, verbose=False):
     if not neo:
         print("No matching NEOs exist in the database.", file=sys.stderr)
         return None
-
+    print(neo)
     # Display information about this NEO, and optionally its close approaches if verbose.
     if verbose:
         for approach in neo.approaches:

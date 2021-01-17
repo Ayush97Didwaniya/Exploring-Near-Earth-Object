@@ -14,8 +14,6 @@ You'll edit this file in Tasks 2 and 3.
 def get_linked_approaches_neos(neos, approaches):
     neoList = {}
     approachList = []
-    neos_name_dict = {}
-    neos_designation_dict = {}
     for approach in approaches:
         for neo in neos:
             if neo.designation == approach._designation:
@@ -30,11 +28,8 @@ def get_linked_approaches_neos(neos, approaches):
     for neo in neos:
         if neo.designation not in neoList:
             neoList[neo.designation] = neo
-        if neo.name:
-            neos_name_dict[neo.name] = neo
-        neos_designation_dict[neo.designation] = neo
     
-    return (neoList.values(), approachList, neos_name_dict, neos_designation_dict)
+    return (neoList.values(), approachList)
 
 class NEODatabase:
     """A database of near-Earth objects and their close approaches.
@@ -63,9 +58,14 @@ class NEODatabase:
         :param approaches: A collection of `CloseApproach`es.
         """
         # TODO: What additional auxiliary data structures will be useful?
+        self.neos_name_dict = {}
+        self.neos_designation_dict = {}
         # TODO: Link together the NEOs and their close approaches.
-        self._neos, self._approaches, self.neos_name_dict, self.neos_designation_dict = get_linked_approaches_neos(neos, approaches)
-
+        self._neos, self._approaches = get_linked_approaches_neos(neos, approaches)
+        for neo in self._neos:
+            if neo.name:
+                self.neos_name_dict[neo.name] = neo
+            self.neos_designation_dict[neo.designation] = neo
 
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
@@ -83,7 +83,7 @@ class NEODatabase:
         # TODO: Fetch an NEO by its primary designation.
         if designation in self.neos_designation_dict:
             return self.neos_designation_dict[designation]
-        return None       
+        return None
 
     def get_neo_by_name(self, name):
         """Find and return an NEO by its name.
