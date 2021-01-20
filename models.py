@@ -61,6 +61,7 @@ class NearEarthObject:
                 f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})")
 
     def serialize(self):
+        """Return serialized dictionary data to write in CSV and JSON file"""
         name = self.name if self.name != None else ''
         return {'designation': self.designation, 'name': name, 'diameter_km': self.diameter, 'potentially_hazardous': self.hazardous}
 
@@ -114,4 +115,5 @@ class CloseApproach():
                 f"velocity={self.velocity:.2f}, neo={self.neo!r})")
 
     def serialize(self):
+        """Return serialized dictionary data to write in CSV and JSON file"""
         return {'datetime_utc': datetime_to_str(self.time), 'distance_au': self.distance, 'velocity_km_s': self.velocity, 'neo': self.neo.serialize()}
