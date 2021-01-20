@@ -72,28 +72,62 @@ class AttributeFilter:
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
 class DistanceFilter(AttributeFilter):
+    """A subclass of AttributeFilter class that override get function."""
     @classmethod
     def get(cls, approach):
+        """function override its superclass AttributeFilter get function.
+
+        it return distance value from approach object, which is comparable to command line arguments
+        provided by user for distance comparision.
+        """
         return approach.distance
 
 class VelocityFilter(AttributeFilter):
+    """A subclass of AttributeFilter class that override get function."""
     @classmethod
     def get(cls, approach):
+        """function override its superclass AttributeFilter get function.
+        
+        it return velocity value from approach object, which is comparable to command line arguments
+        provided by user for velocity comparision.
+        """
         return approach.velocity
 
 class DateFilter(AttributeFilter):
+    """A subclass of AttributeFilter class that override get function."""
     @classmethod
     def get(cls, approach):
+        """function override its superclass AttributeFilter get function.
+
+        The date, start_date, and end_date arguments supplied to create_filters are dates,
+        but the .time attribute of a CloseApproach is a datetime. so we have used the .date() method on
+        datetime objects to get the corresponding moment as a date.
+        
+        function return datetime value as date from approach object, which is comparable to command line arguments
+        provided by user for Date comparision.
+        """
         return approach.time.date()
 
 class DiameterFilter(AttributeFilter):
+    """A subclass of AttributeFilter class that override get function."""
     @classmethod
     def get(cls, approach):
+        """function override its superclass AttributeFilter get function.
+
+        function return diameter value from neo object in approach object, which is comparable to
+        command line arguments provided by user for Diameter comparision.
+        """
         return approach.neo.diameter
 
-class HazardousFilter(AttributeFilter): 
+class HazardousFilter(AttributeFilter):
+    """A subclass of AttributeFilter class that override get function."""
     @classmethod
     def get(cls, approach):
+        """function override its superclass AttributeFilter get function.
+
+        function return hazardous value from neo object in approach object, which is comparable to
+        command line arguments provided by user for hazardous comparision.
+        """
         return approach.neo.hazardous
 
 def create_filters(date=None, start_date=None, end_date=None,
@@ -130,7 +164,6 @@ def create_filters(date=None, start_date=None, end_date=None,
     :param hazardous: Whether the NEO of a matching `CloseApproach` is potentially hazardous.
     :return: A collection of filters for use with `query`.
     """
-    # TODO: Decide how you will represent your filters.
     filterList = []
     if (date):
         filterList.append(DateFilter(operator.eq, date))
@@ -178,4 +211,3 @@ def limit(iterator, n=None):
     if n == 0:
         n = None
     return itertools.islice(iterator, n)
-    # TODO: Produce at most `n` values from the given iterator.

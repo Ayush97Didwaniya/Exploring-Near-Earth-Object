@@ -12,6 +12,16 @@ data on NEOs and close approaches extracted by `extract.load_neos` and
 You'll edit this file in Tasks 2 and 3.
 """
 def get_linked_approaches_neos(neos, approaches):
+    """Link neos and approaches objects
+
+    Each `CloseApproach` has an attribute (`._designation`) that
+    matches the `.designation` attribute of the corresponding NEO. This
+    function modifies the supplied NEOs and close approaches to link them
+    together and return linked neos, approaches collection.
+
+    :param neos: A collection of `NearEarthObject`s.
+    :param approaches: A collection of `CloseApproach`es.
+    """
     neoList = {}
     approachList = []
     for approach in approaches:
@@ -57,10 +67,8 @@ class NEODatabase:
         :param neos: A collection of `NearEarthObject`s.
         :param approaches: A collection of `CloseApproach`es.
         """
-        # TODO: What additional auxiliary data structures will be useful?
         self.neos_name_dict = {}
         self.neos_designation_dict = {}
-        # TODO: Link together the NEOs and their close approaches.
         self._neos, self._approaches = get_linked_approaches_neos(neos, approaches)
         for neo in self._neos:
             if neo.name:
@@ -80,7 +88,6 @@ class NEODatabase:
         :param designation: The primary designation of the NEO to search for.
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
-        # TODO: Fetch an NEO by its primary designation.
         if designation in self.neos_designation_dict:
             return self.neos_designation_dict[designation]
         return None
@@ -99,7 +106,6 @@ class NEODatabase:
         :param name: The name, as a string, of the NEO to search for.
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
-        # TODO: Fetch an NEO by its name.
         if name in self.neos_name_dict:
             return self.neos_name_dict[name]
         return None       
@@ -118,7 +124,6 @@ class NEODatabase:
         :param filters: A collection of filters capturing user-specified criteria.
         :return: A stream of matching `CloseApproach` objects.
         """
-        # TODO: Generate `CloseApproach` objects that match all of the filters.
         for approach in self._approaches:
             flag = False in map(lambda f: f(approach), filters)
             if flag == False:
