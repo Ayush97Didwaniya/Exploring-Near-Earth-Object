@@ -141,4 +141,4 @@ class CloseApproach():
                 f"velocity={self.velocity:.2f}, neo={self.neo!r})")
 
     def serialize(self):
-        return {'datetime_utc': datetime_to_str(self.time), 'distance_au': self.distance, 'velocity_km_s': self.velocity}
+        return {'datetime_utc': datetime_to_str(self.time), 'distance_au': self.distance, 'velocity_km_s': self.velocity, 'neo': self.neo.serialize()}

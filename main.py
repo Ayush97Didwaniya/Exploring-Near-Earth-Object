@@ -381,13 +381,11 @@ def main():
     parser, inspect_parser, query_parser = make_parser()
     args = parser.parse_args()
     startTime = time.time()
-    print ('main function called, loading database start time', startTime)
     # Extract data from the data files into structured Python objects.
     database = NEODatabase(load_neos(args.neofile), load_approaches(args.cadfile))
     total_time = time.time() - startTime
     minutes = total_time / 60
     seconds = total_time % 60
-    print (f'DatabaseLoaded, total time {minutes} minutes {seconds} seconds')
     
     # Run the chosen subcommand.
     if args.cmd == 'inspect':
